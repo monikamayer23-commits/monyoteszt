@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Dinamikus dc_ref</title>
+</head>
+<body>
+
+<h3>Válassz oldalt:</h3>
+
+<select id="siteSelect" onchange="reloadWithParam()">
+    <option value="https://24.hu">24.hu</option>
+    <option value="https://24.hu?cm">24.hu?cm</option>
+    <option value="https://vezess.hu">https://vezess.hu</option>
+    <option value="https://nlc.hu">https://nlc.hu</option>
+</select>
+    
+
+<p id="debug" style="margin-top:20px; font-family:monospace;"></p>
+
+<script>
+
+function reloadWithParam() {
+    var selectedUrl = document.getElementById("siteSelect").value;
+    window.location.search = "?dc_ref=" + encodeURIComponent(selectedUrl);
+}
+
+
+
+function getParam(name) {
+    var urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(name);
+}
+
+
+var dc_ref = getParam("dc_ref") || "https://24.hu";
+
+document.getElementById("siteSelect").value = dc_ref;
+
+// script kiírása
+document.write(
+    "<scr" + "ipt src='https://ad.doubleclick.net/ddm/adj/N2428470.2111901CENTRALMEDIA/B35376046.443279388"
+    + ";dc_sdk_apis=[APIFRAMEWORKS]"
+    + ";dc_omid_p=[OMIDPARTNER]"
+    + ";gdpr=${GDPR}"
+    + ";gdpr_consent=${GDPR_CONSENT_755}"
+    + ";dc_tdv=1"
+    + ";sz=970x400"
+    + ";ord=" + new Date().getTime()
+    + ";click0="
+    + ";dc_ref=" + encodeURIComponent(dc_ref)
+    + ";dc_lat="
+    + ";dc_rdid="
+    + ";tag_for_child_directed_treatment="
+    + ";tfua=?'></scr" + "ipt>"
+);
+    
+
+    // debug kiírás
+document.getElementById("debug").textContent = "Hívás URL: " + scriptUrl;
+</script>
+
+</body>
+</html>
